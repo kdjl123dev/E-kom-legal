@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pour Stella ✨</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #2b1055, #0b021f);
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow-y: auto;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      padding: 40px 22px 80px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin-bottom: 35px;
+      letter-spacing: 1px;
+    }
+
+    .start-btn {
+      padding: 14px 36px;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(135deg, #ff4d6d, #ff758f);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(255,77,109,0.6);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 15px rgba(255,77,109,0.5); }
+      50% { box-shadow: 0 0 30px rgba(255,77,109,0.9); }
+      100% { box-shadow: 0 0 15px rgba(255,77,109,0.5); }
+    }
+
+    .message {
+      margin-top: 40px;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      white-space: pre-line;
+    }
+
+    .signature {
+      margin-top: 40px;
+      font-size: 0.95rem;
+      opacity: 0.85;
+      font-style: italic;
+    }
+
+    /* étoiles */
+    .star {
+      position: fixed;
+      width: 2px;
+      height: 2px;
+      background: white;
+      opacity: 0.7;
+      animation: twinkle 4s infinite;
+      z-index: 1;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { opacity: 0.2; }
+    }
+
+    /* cœurs */
+    .heart {
+      position: fixed;
+      font-size: 14px;
+      color: #ff4d6d;
+      animation: float 6s linear infinite;
+      opacity: 0.5;
+      z-index: 1;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(-10vh);
+        opacity: 1;
+      }
+    }
+
+    /* feu d’artifice */
+    .spark {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: #ffb3c6;
+      border-radius: 50%;
+      animation: explode 1.2s ease-out forwards;
+      z-index: 3;
+    }
+
+    @keyframes explode {
+      from {
+        transform: scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: translate(var(--x), var(--y)) scale(0);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Pour Stella ✨</h1>
+
+    <button class="start-btn" id="startBtn">Clique ici</button>
+
+    <div class="message" id="message"></div>
+    <div class="signature" id="signature"></div>
+  </div>
+
+  <script>
+    const text = `
+Stella,
+
+Je ne savais pas vraiment comment commencer…
+alors j’ai décidé d’être simplement sincère.
+
+Le 27 décembre 2025,
+lors de cette sortie,
+nos chemins se sont croisés.
+
+Tu portais une robe rouge.
+Mais ce n’est pas seulement ça qui m’a marqué.
+C’était ton sourire.
+Naturel, lumineux, vrai.
+
+On se connaît encore peu,
+et pourtant,
+cette rencontre m’a laissé une impression particulière.
+Comme ces moments rares
+qu’on n’explique pas,
+mais que l’on n’oublie pas.
+
+En ce début d’année,
+je voulais te souhaiter le meilleur.
+Des journées qui commencent bien,
+des sourires sans raison,
+et des rencontres qui comptent.
+
+J’aimerais beaucoup apprendre à te connaître,
+prendre le temps,
+simplement.
+`;
+
+    const signatureText = "— Une pensée sincère pour toi , bonne année Stella✨";
+
+    const messageEl = document.getElementById("message");
+    const signatureEl = document.getElementById("signature");
+    const btn = document.getElementById("startBtn");
+
+    let index = 0;
+
+    function typeWriter() {
+      if (index < text.length) {
+        messageEl.textContent += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, 45);
+      } else {
+        signatureEl.textContent = signatureText;
+        launchFireworks();
+      }
+    }
+
+    btn.addEventListener("click", () => {
+      btn.style.display = "none";
+      typeWriter();
+    });
+
+    /* étoiles */
+    for (let i = 0; i < 60; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.top = Math.random() * 100 + "vh";
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.animationDelay = Math.random() * 4 + "s";
+      document.body.appendChild(star);
+    }
+
+    /* cœurs */
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "❤";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }, 1400);
+
+    /* feu d’artifice */
+    function launchFireworks() {
+      for (let i = 0; i < 30; i++) {
+        const spark = document.createElement("div");
+        spark.className = "spark";
+        spark.style.left = "50vw";
+        spark.style.top = "50vh";
+        spark.style.setProperty("--x", (Math.random() * 300 - 150) + "px");
+        spark.style.setProperty("--y", (Math.random() * 300 - 150) + "px");
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 1200);
+      }
+    }
+  </script>
+
+</body>
+</html>
